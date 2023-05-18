@@ -1,0 +1,17 @@
+.udr_logo{
+    font-family: 'Lobster', cursive;
+}
+
+.udr_footer_button {
+    font.size: .6rem;
+}
+
+.udr_footer {
+    text-align:center;
+    margin-top: 2rem;
+}
+
+.udr_header {
+    text-align:center;
+    margin: 2rem 0;
+}
