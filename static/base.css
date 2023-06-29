@@ -21,3 +21,20 @@
         font-size: 13px;
     }
 }
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: block;
+    text-decoration: name;
+}
+
+.udr_header_nav {
+    margin: 0 0.5rem;
+}
+
+.udr_header_navbar {
+    margin: 1rem 0;
+}
