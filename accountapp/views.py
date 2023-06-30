@@ -7,10 +7,12 @@ from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic.list import MultipleObjectMixin
 
 from accountapp.decorators import account_ownership_required
 from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWORLD
+from articleapp.models import Article
 
 has_ownership = [account_ownership_required, login_required]
 
@@ -37,10 +39,16 @@ class AccountCreateView(CreateView):
     success_url = reverse_lazy('accountapp:hello_world')    #로그인 성공하고 어디로 갈지 지정해주기
     template_name = 'accountapp/create.html'
 
-class AccountDetailView(DetailView):
+class AccountDetailView(DetailView, MultipleObjectMixin):
     model = User
     context_object_name = 'target_user'     #별명 짓기, 객체 이름을 지정해주고 html(t)에게 알려주는 기능, 여기서는 user model을 뜻한다.
     template_name = 'accountapp/detail.html'
+
+    pagination_by = 25
+
+    def get_context_data(self, **kwargs):
+        object_list = Article.objects.filter(writer=self.get_object())
+        return super(AccountDetailView, self).get_context_data(object_list=object_list, **kwargs)
 
 @method_decorator(has_ownership, 'get')
 @method_decorator(has_ownership, 'post')
